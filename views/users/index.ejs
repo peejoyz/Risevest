@@ -1,0 +1,100 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <% if(user) { %>
+        <a href="/user/logout" data-toggle="" data-target="" class="btn btn-primary">
+        <i> Logout </i>
+    </a>
+    <%} else {%>
+        <a href="/user/login" data-toggle="" data-target="" class="btn btn-primary">
+        <i> Login </i>
+    </a>
+
+    <% } %>
+    
+    <a href="/upload" data-toggle="" data-target="" class="btn btn-primary">
+        <i> Upload a file </i>
+    </a>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Media Lists</h1>
+                <div class="" style="margin-bottom: 0.85em;">
+                    <a href="/download" data-toggle="" data-target="" class="btn btn-primary">
+                        <i> My Downloads </i>
+                    </a>
+                    <a href="/folder" data-toggle="" data-target="" class="btn btn-primary">
+                        <i> Create a folder </i>
+                    </a>
+                    <a href="/folder/files" data-toggle="" data-target="" class="btn btn-primary">
+                        <i> My folder </i>
+                    </a>
+                </div>
+                <% if (datas.length) { %>
+                    <!-- <div class=""> -->
+                        <% datas.forEach(function(data) { %>
+                            <div class="card" style="margin-bottom: 1.05em;">
+                                <div class="col-md-3">
+                                    <div class="">
+                                        <div class="text-center">
+                                            <div>
+                                                <% if(data.fileType == 'audio') { %>
+                                                    <Audio src="<%= data.media %>" controls></Audio>	
+                                                <% } else if(data.fileType == 'video') { %>
+                                                    <video width="320" height="240" controls>
+                                                        <source src="<%= data.media %>" type="video/mp4">
+                                                    </video>
+                                                <% } else { %>
+                                                    <img class="img-fluid" src="<%= data.media %>" />
+                                                <% } %> 
+                                            </div>
+                                            <h3>
+                                                <%= data.title %>
+                                            </h3>
+                                            <div>User : <%= data.user.fullname %></div> 
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div style="margin-top: 0.85em;">
+                                    <!-- <a href="<%= data.media %>" download class="btn btn-primary">Downlaod</a> -->
+                                    <form method="post" action="/download">
+                                        <input type="hidden" name="title" value="<%= data.title%>">
+                                        <input type="hidden" name="mediaOwner" value="<%= data.user.fullname%>">
+                                        <!-- <img class="img-fluid" src="<%= data.media %>" /> -->
+                                        <input type="hidden" name="media" value="<%= data.media  %>">
+                                        <button class="btn btn-primary" download>Download </button>
+                                        <!-- <a href="<%= data.media %>" download></a>  -->
+                                    </form>
+
+                                    <div class="form-group" style="margin-top: 0.85em;">
+                                        <% if(folders.length !== 0) { %>
+                                            <form action="/add/<%= data._id %>" method="post">
+                                                <label for="Folder">Add to a Folder</label>
+                                                <input type="hidden" name="mediaId" value="<%= data._id %>"> 
+                                                <input type="hidden" name="title" value="<%= data.title %>">
+                                                <input type="hidden" name="media" value="<%= data.media %>">
+                                                <select name="folderName" class="form-control" style="margin-bottom: 0.7em;">
+                                                    <% folders.forEach(function(folder) { %>
+                                                        <option value="<%= folder.title %>"><%= folder.title %></option>
+                                                    <% }); %>
+                                                </select>
+                                                <button class="btn btn-primary" download> Add </button>
+                                            </form>
+                                        <% } else { %>
+                                            <label for="Folder">Add to a Folder</label>
+                                            <p>Pls create a folder to add file</p>
+                                        <% } %>
+                                        
+                                    </div>
+
+                                </div>
+
+                            </div>
+                        <% })%>   
+                    <!-- </div>  -->
+                <% } else { %>
+                    <div>No media found </div>
+                <% } %>     
+        </div>
+    </div>
+</div>
+

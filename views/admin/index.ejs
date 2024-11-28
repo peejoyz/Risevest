@@ -1,0 +1,58 @@
+<%- include('../partials/header.ejs') %>
+
+<div class="container">
+    <% if(user) { %>
+       Welcome <span style="color: burlywood;"> <%= user.fullname %> </span>
+    <% } %>
+    <div class="row">
+        <div class="col-md-12">
+            <h1>Media Lists</h1>
+                <% if (datas.length) { %>
+                    <!-- <div class=""> -->
+                        <% datas.forEach(function(data) { %>
+                            <div class="card" style="margin-bottom: 1.05em;">
+                                <div class="col-md-3">
+                                    <div class="">
+                                        <div class="text-center">
+                                            <div>
+                                                <% if(data.fileType == 'audio') { %>
+                                                    <Audio src="<%= data.media %>" controls></Audio>	
+                                                <% } else if(data.fileType == 'video') { %>
+                                                    <video width="320" height="240" controls>
+                                                        <source src="<%= data.media %>" type="video/mp4">
+                                                    </video>
+                                                <% } else { %>
+                                                    <img class="img-fluid" src="<%= data.media %>" />
+                                                <% } %> 
+                                            </div>
+                                            <h3>
+                                                Name: <%= data.title %>
+                                            </h3>
+                                            <div>User : <%= data.user.fullname %></div> 
+                                            <div>Mark : <%= data.mark %></div> 
+                                        </div>
+                                    </div>
+                                </div> 
+                                <div style="margin-top: 0.85em;">
+                                    <!-- <a href="<%= data.media %>" download class="btn btn-primary">Downlaod</a> -->
+                                   
+                                    <form method="post" action="/admin/unsafe">
+                                        <input type="hidden" name="dataId" value="<%= data._id %>">
+                                        <select name="mark" class="form-control" style="margin-bottom: 0.7em;">
+                                                <option value="safe">safe</option>
+                                                <option value="unsafe">unsafe</option>
+                                        </select>
+                                        <button class="btn btn-primary" download> Done </button>
+                                    </form>
+                                    
+                                </div>
+
+                            </div>
+                        <% })%>   
+                    <!-- </div>  -->
+                <% } else { %>
+                    <div>No media found </div>
+                <% } %>     
+        </div>
+    </div>
+</div>

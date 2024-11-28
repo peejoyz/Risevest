@@ -1,0 +1,71 @@
+<%- include('../partials/header.ejs') %>
+
+<!-- <div class="container"> -->
+    <div class="container">
+        <div class="row">
+            <div class="col-md-12">
+                <h1>Your Folder</h1>
+
+                <% if (files.folder.length) { %>
+                    <h3 style="margin-bottom: 0.75em;">You have '<%= files.folder.length %>' folders</h3>
+
+                    <% files.folder.forEach(function(file) { %>
+                        <h2><%= file.title %></h2>
+                        
+                        <div class="agileinfo-ads-display col-lg-9">
+                            <div class="wrapper">
+                                <!-- first section -->
+                                <div class="product-sec1 px-sm-4 px-3 py-sm-5 py-3 mb-4">
+                                    <!-- <h3 class="heading-tittle text-center font-italic" style="margin-bottom: 0.5em;">New Brand Mobiles</h3> -->
+                                    <div class="row">
+                                        <% file.medias.forEach(function(media) { %>
+                                            <div class="col-md-4 product-men mt-">
+                                                <div class="men-pro-item simpleCart_shelfItem">
+                                                    
+                                                        <div class="men-thumb-item text-center">
+                                                            <% if(media.fileType == 'audio') { %>
+                                                                <Audio src="<%= media.media %>" controls></Audio>	
+                                                            <% } else if(media.fileType == 'video') { %>
+                                                                <video width="320" height="240" controls>
+                                                                    <source src="<%= media.media %>" type="video/mp4">
+                                                                </video>
+                                                            <% } else { %>
+                                                                <img class="img-fluid" src="<%= media.media %>" />
+                                                            <% } %> 
+                                                        </div>
+                                                        <div class="item-info-product text-center border-top mt-">
+                                                            <span class="pt-1">
+                                                                Name: <%= media.title %>
+                                                                <%= media.fileType %>
+                                                            </span>
+                                                        </div>
+                                                </div>
+                                            </div>
+                                        
+                                            <div class="col-md-4 product-men mt-">
+                                                <div class="men-pro-item simpleCart_shelfItem">
+                                                    
+                                                        <div class="men-thumb-item text-center">
+                                                            
+                                                        </div>
+                                                        <div class="item-info-product text-center border-top mt-">
+                                                            
+                                                        </div>
+                                                </div>
+                                            </div>   
+                                        <% }) %>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        
+                    <% }) %>
+
+                <% } else { %>
+                    <div> You have no folder, Pls create one. </div>
+                <% } %>
+            </div>
+        </div>
+    </div>
+<!-- </div> -->
+

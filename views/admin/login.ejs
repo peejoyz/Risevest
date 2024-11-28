@@ -1,0 +1,53 @@
+<%- include('../partials/header.ejs') %>
+
+<style>
+    .container{
+        padding: 1.5em;
+    }
+    h2{
+       margin-bottom: 12px;
+    }
+    .form-group {
+        margin-bottom: 1em;
+    }
+
+    .form-group label {
+        margin-bottom: 0.2em;
+    }
+</style>
+
+<body>
+
+    <!-- log in -->
+    <div class="container home">
+        <a href="/"> Home </a>
+    </div> 
+
+    <div class="container">
+
+        <h2>Login</h2>
+
+        <form method="POST" action="/admin/login">
+            
+            <div class="form-group">
+                <label for="Username">Email</label>
+                <input type="text" name="email" class="form-control" placeholder="Email">
+            </div>
+
+            <div class="form-group">
+                <label for="Password">Password</label>
+                <input type="password" name="password" class="form-control" placeholder="Password">
+            </div>
+            <button type="submit" class="btn btn-primary">Log in</button>
+
+        </form><br/>
+
+        <span>
+            You are not a registered user yet ? pls click here <a class="vd" href="/admin/register">Register</a>
+        </span>
+
+    </div>
+    
+
+</body>
+</html>

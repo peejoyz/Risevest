@@ -1,0 +1,30 @@
+<style>
+    .alert {
+      width: 50%;
+      margin-top: 0.2em;        
+    }
+  
+    @media(max-width: 600px) {
+      .alert {
+          width: 60%;
+          margin-left: -10em;
+          margin-top: 0.3em;
+      }
+    }
+  </style>
+  
+  <% Object.keys(messages).forEach(function (type) { %>
+    <div id="error_display">
+      <div class="col-md-6 alert alert-<%= type %>">
+        <% messages[type].forEach(function (message) { %>
+            <%= message %>
+          <% }) %>
+      </div> 
+    </div>
+        
+  <% }) %>
+  
+  <script>
+    const Success = document.getElementById("error_display");
+    setTimeout(function(){Success.style.display = 'none'}, 4000);
+  </script>
